@@ -32,6 +32,7 @@ function createGallery() {
         current.delete(url);
       }
       saveGrayedOut(current);
+      updateCharacterStats()
     });
 
     gallery.appendChild(img);
@@ -93,7 +94,19 @@ function createRandomizer() {
 
   randomizer.appendChild(characterImage);
   randomizer.appendChild(randomizeButton);
+
+  const statsText = document.createElement("div");
+  statsText.id = "stats"
+  statsText.style.color = "white";
+  randomizer.appendChild(statsText);
   document.body.appendChild(randomizer);
+  updateCharacterStats();
+}
+
+function updateCharacterStats() {
+  const grayedOut = loadGrayedOut();
+  const stats = document.getElementById("stats");
+  stats.innerText = `${grayedOut.size} out of ${imageLinks.length} (${((grayedOut.size / imageLinks.length) * 100).toFixed(2)}%) characters are grayed out.`
 }
 
 createGallery();
